@@ -4,16 +4,23 @@ import ProductScreen from "./screens/ProductScreen";
 function App() {
   return (
     <BrowserRouter>
-      <div>
-        <header>
-          <Link to="/">G-express</Link>
-        </header>
-        <main>
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/product/:slug" element={<ProductScreen />} />
-          </Routes>
-        </main>
+      <div className="site-container">
+        <div>
+          <header>
+            <div className="container">
+              <Link to="/">G-express</Link>
+            </div>
+          </header>
+          <main>
+            <Routes>
+              <Route path="/" element={<HomeScreen />} />
+              <Route path="/product/:slug" element={<ProductScreen />} />
+            </Routes>
+          </main>
+        </div>
+        <footer>
+          <p>footer</p>
+        </footer>
       </div>
     </BrowserRouter>
   );

@@ -1,7 +1,8 @@
 import { useEffect, useReducer } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import logger from "use-reducer-logger";
+import Product from "../components/Product";
+import { Helmet } from "react-helmet-async";
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -35,7 +36,10 @@ function HomeScreen() {
   }, []);
 
   return (
-    <div>
+    <div className="container">
+      <Helmet>
+        <title>G-express</title>
+      </Helmet>
       <h1>featured products</h1>
       <div className="products">
         {loading ? (
@@ -44,20 +48,7 @@ function HomeScreen() {
           <div>{error}</div>
         ) : (
           products.map((product) => (
-            <div className="product" key={product.slug}>
-              <Link to={`/product/${product.slug}`}>
-                <img src={product.image} alt={product.name} />
-              </Link>
-              <div className="product-info">
-                <Link to={`/product/${product.slug}`}>
-                  <p>{product.name}</p>
-                </Link>
-                <p>
-                  <strong>${product.price}</strong>
-                </p>
-                <button>Add to cart</button>
-              </div>
-            </div>
+            <Product product={product} key={product.slug} />
           ))
         )}
       </div>

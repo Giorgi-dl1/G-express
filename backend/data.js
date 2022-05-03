@@ -7,7 +7,7 @@ const data = {
       image:
         "https://media.istockphoto.com/photos/mens-shirt-picture-id488160041?k=20&m=488160041&s=612x612&w=0&h=OH_-skyES8-aeTvDQHdVDZ6GKLsqp6adFJC8u6O6_UY=",
       price: 120,
-      countInStock: 10,
+      countInStock: 0,
       brand: "Nike",
       rating: 4.5,
       numReviews: 10,
@@ -22,7 +22,7 @@ const data = {
       price: 160,
       countInStock: 10,
       brand: "Adidas",
-      rating: 4.7,
+      rating: 2.7,
       numReviews: 12,
       description: "high quality shirt",
     },
@@ -51,6 +51,19 @@ const data = {
       rating: 4.5,
       numReviews: 10,
       description: "high quality pant",
+    },
+    {
+      name: "Nike paper shirt",
+      slug: "nike-paper-shirt",
+      category: "Shirts",
+      image:
+        "https://media.istockphoto.com/photos/mens-shirt-picture-id488160041?k=20&m=488160041&s=612x612&w=0&h=OH_-skyES8-aeTvDQHdVDZ6GKLsqp6adFJC8u6O6_UY=",
+      price: 120,
+      countInStock: 10,
+      brand: "Nike",
+      rating: 4.5,
+      numReviews: 10,
+      description: "high quality shirt",
     },
   ],
 };
