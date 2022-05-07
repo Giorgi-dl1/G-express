@@ -3,6 +3,7 @@ import axios from "axios";
 import logger from "use-reducer-logger";
 import Product from "../components/Product";
 import { Helmet } from "react-helmet-async";
+import { getError } from "../functions";
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -29,7 +30,7 @@ function HomeScreen() {
         const data = await axios.get("/api/products");
         dispatch({ type: "FETCH_SUCCESS", payload: data.data });
       } catch (error) {
-        dispatch({ type: "FETCH_FAIL", payload: error.message });
+        dispatch({ type: "FETCH_FAIL", payload: getError(error) });
       }
     };
     getProducts();
@@ -43,9 +44,9 @@ function HomeScreen() {
       <h1>featured products</h1>
       <div className="products">
         {loading ? (
-          <div>loading...</div>
+          <div className="loading-spinner" />
         ) : error ? (
-          <div>{error}</div>
+          <div className="error">{error}</div>
         ) : (
           products.map((product) => (
             <Product product={product} key={product.slug} />
