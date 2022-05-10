@@ -1,0 +1,91 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { Store } from "../Store";
+import { HiPlusCircle, HiMinusCircle, HiOutlineTrash } from "react-icons/hi";
+import axios from "axios";
+function CartScreen() {
+  const { state, dispatch: contextDispatch } = useContext(Store);
+  const {
+    cart: { cartItems },
+  } = state;
+  const changeQuantity = async (item, quantity) => {
+    const { data } = await axios.get(`/api/products/${item._id}`);
+    if (data.countInStock < quantity) {
+      return;
+    }
+    if (quantity < 1) {
+      return;
+    }
+    contextDispatch({
+      type: "ADD_TO_CART",
+      payload: { ...item, quantity },
+    });
+  };
+  const deleteItem = (x) => {
+    contextDispatch({
+      type: "CART_DELETE_ITEM",
+      payload: { ...x },
+    });
+  };
+  return (
+    <div className="container">
+      <h1>Shopping Cart</h1>
+      {cartItems.length === 0 ? (
+        <div className="cart-empty">
+          cart is empty <Link to={"/"}>go to shopping</Link>
+        </div>
+      ) : (
+        <div className="cart">
+          <div className="cart-items">
+            {cartItems.map((x) => (
+              <div className="cart-item">
+                <div style={{ width: 186, gap: "1rem" }}>
+                  <div className="thumbnail">
+                    <img src={x.image} alt={x.slug} />
+                  </div>
+                  <Link to={`/product/${x.slug}`}>{x.slug}</Link>
+                </div>
+
+                <div className="control-quantity">
+                  <span
+                    className={x.quantity <= 1 ? "icon disabled" : "icon minus"}
+                    onClick={() => changeQuantity(x, x.quantity - 1)}
+                  >
+                    <HiMinusCircle />
+                  </span>
+                  <span>{x.quantity}</span>
+                  <span
+                    className={
+                      x.quantity >= x.countInStock
+                        ? "icon disabled"
+                        : "icon plus"
+                    }
+                    onClick={() => changeQuantity(x, x.quantity + 1)}
+                  >
+                    <HiPlusCircle />
+                  </span>
+                </div>
+                <div className="price">${x.price}</div>
+                <div className="icon delete" onClick={() => deleteItem(x)}>
+                  <HiOutlineTrash />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="payment">
+            <div className="payment-info">
+              Subtotal ({cartItems.length} items): $
+              {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
+            </div>
+            <div className="line"></div>
+            <div className="checkout">
+              <button>Proceed to Checkout</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default CartScreen;

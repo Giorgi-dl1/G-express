@@ -1,9 +1,11 @@
-import { useEffect, useReducer } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useReducer } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Rating from "../components/Rating";
 import { Helmet } from "react-helmet-async";
 import { getError } from "../functions";
+import { Store } from "../Store";
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -25,7 +27,7 @@ function ProductScreen() {
   });
   const params = useParams();
   const { slug } = params;
-
+  const navigate = useNavigate();
   useEffect(() => {
     const getProducts = async () => {
       dispatch({ type: "FETCH_REQUEST" });
@@ -38,6 +40,23 @@ function ProductScreen() {
     };
     getProducts();
   }, [slug]);
+
+  const { state, dispatch: contextDispatch } = useContext(Store);
+  const { cart } = state;
+  const addToCartHandler = async () => {
+    const existItem = cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+      window.alert("Sorry, Product is out of stock");
+      return;
+    }
+    contextDispatch({
+      type: "ADD_TO_CART",
+      payload: { ...product, quantity },
+    });
+    navigate("/cart");
+  };
 
   return (
     <div>
@@ -85,7 +104,9 @@ function ProductScreen() {
                   {product.countInStock > 0 ? "In Stock" : "Unavailable"}
                 </span>
               </div>
-              {product.countInStock > 0 && <button>Add to Cart</button>}
+              {product.countInStock > 0 && (
+                <button onClick={addToCartHandler}>Add to Cart</button>
+              )}
             </div>
           </div>
         </div>
