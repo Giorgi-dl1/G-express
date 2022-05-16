@@ -1,13 +1,15 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Store } from "../Store";
 import { HiPlusCircle, HiMinusCircle, HiOutlineTrash } from "react-icons/hi";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 function CartScreen() {
   const { state, dispatch: contextDispatch } = useContext(Store);
   const {
     cart: { cartItems },
   } = state;
+  const navigate = useNavigate();
   const changeQuantity = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
@@ -27,12 +29,18 @@ function CartScreen() {
       payload: { ...x },
     });
   };
+  const checckoutHandler = () => {
+    navigate("/signin?redirect=/shipping");
+  };
   return (
     <div className="container">
+      <Helmet>
+        <title>Shopping Cart</title>
+      </Helmet>
       <h1>Shopping Cart</h1>
       {cartItems.length === 0 ? (
         <div className="cart-empty">
-          cart is empty <Link to={"/"}>go to shopping</Link>
+          Cart is empty. <Link to={"/"}>Go Shopping</Link>
         </div>
       ) : (
         <div className="cart">
@@ -79,7 +87,9 @@ function CartScreen() {
             </div>
             <div className="line"></div>
             <div className="checkout">
-              <button>Proceed to Checkout</button>
+              <button onClick={() => checckoutHandler()}>
+                Proceed to Checkout
+              </button>
             </div>
           </div>
         </div>

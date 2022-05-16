@@ -213,6 +213,16 @@ footer {
   border-bottom: none;
   height: max-content;
 }
+.cart-empty {
+  background-color: hsl(182, 97%, 36%);
+  max-width: 90vw;
+  padding: 1rem;
+  border-radius: 7px;
+}
+.outstock-button {
+  background-color: #ccc !important;
+  color: black !important;
+}
 .plus,
 .minus {
   display: grid;
@@ -227,10 +237,6 @@ footer {
 .disabled {
   display: grid;
   color: hsl(0, 0%, 31%);
-  /* padding: 0.3rem;
-  border-radius: 30%;
-  margin: 0.3rem;
-  background-color: rgb(221, 221, 221); */
 }
 .delete {
   cursor: pointer;
@@ -287,7 +293,31 @@ footer {
   display: flex;
   align-items: center;
 }
-
+.signin {
+  width: 500px;
+  max-width: 90vw;
+}
+.signin form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.signin form input {
+  outline: none;
+  border: 1px solid #ccc;
+  height: 1.7rem;
+  border-radius: 5px;
+}
+.signin form button {
+  padding: 0.6rem 0.7rem;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: hsl(240, 97%, 23%);
+  color: white;
+  border-radius: 5px;
+  width: 5rem;
+}
 @media (max-width: 800px) {
   main {
     padding: 0;
