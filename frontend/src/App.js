@@ -1,32 +1,79 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import CartScreen from "./screens/CartScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import SigninScreen from "./screens/SigninScreen";
 import { Store } from "./Store";
+import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
-  const { state } = useContext(Store);
-  const { cart } = state;
+  const { state, dispatch: contextDispatch } = useContext(Store);
+  const { cart, userInfo } = state;
+  const [dropdown, setDropDown] = useState(false);
+  const signoutHandler = () => {
+    contextDispatch({ type: "USER_SIGNOUT" });
+    localStorage.removeItem("userInfo");
+  };
   return (
     <BrowserRouter>
       <div className="site-container">
         <div>
+          <ToastContainer position="bottom-center" limit={1} />
           <header>
             <div className="container navbar">
               <Link to="/">G-express</Link>
               <div className="navitems">
-                <div className="cart-icon">
-                  Cart
-                  {cart.cartItems.length >= 1 && (
-                    <span className="cartCount">
-                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                    </span>
-                  )}
-                </div>
+                <Link to="/cart">
+                  <div className="cart-icon">
+                    Cart
+                    {cart.cartItems.length >= 1 && (
+                      <span className="cartCount">
+                        {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                      </span>
+                    )}
+                  </div>
+                </Link>
+
+                {userInfo ? (
+                  <div
+                    className="dropdown"
+                    onClick={() => setDropDown(!dropdown)}
+                  >
+                    <div className="dropdown-title">
+                      {userInfo.name}
+                      {dropdown ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}
+                    </div>
+                    {dropdown ? (
+                      <div className="dropdown-items">
+                        <Link to="/profile">
+                          <div className="dropdown-item">User Profile</div>
+                        </Link>
+                        <Link to="/orderhistory">
+                          <div className="dropdown-item">Order History</div>
+                        </Link>
+                        <div className="line"></div>
+                        <Link to="#signout">
+                          <div
+                            className="dropdown-item signout"
+                            onClick={signoutHandler}
+                          >
+                            Sign Out
+                          </div>
+                        </Link>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                ) : (
+                  <Link to="/signin">Sign In</Link>
+                )}
               </div>
             </div>
           </header>
+
           <main>
             <Routes>
               <Route path="/" element={<HomeScreen />} />
