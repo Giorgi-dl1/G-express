@@ -1,9 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import seedRouter from "./routes/seedRoutes.js";
-import productRouter from "./routes/productRoutes.js";
-import userRouter from "./routes/userRouter.js";
+import seedRouter from "./routers/seedRoutes.js";
+import productRouter from "./routers/productRoutes.js";
+import userRouter from "./routers/userRouter.js";
 dotenv.config();
 mongoose
   .connect(process.env.MONGODB_URI, {

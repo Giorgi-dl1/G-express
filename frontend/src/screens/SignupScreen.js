@@ -5,25 +5,33 @@ import Axios from "axios";
 import { Store } from "../Store";
 import { toast } from "react-toastify";
 import { getError } from "../functions";
-function SigninScreen() {
+function SignupScreen() {
   const { search } = useLocation();
   const redirectUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectUrl ? redirectUrl : "/";
 
   const navigate = useNavigate();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const { state, dispatch: contextDispatch } = useContext(Store);
   const { userInfo } = state;
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
     try {
-      const { data } = await Axios.post("/api/users/signin", {
+      const { data } = await Axios.post("/api/users/signup", {
+        name,
         email,
         password,
       });
+
       contextDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
@@ -41,8 +49,16 @@ function SigninScreen() {
       <Helmet>
         <title>Sign In</title>
       </Helmet>
-      <h1>Sign In</h1>
+      <h1>Sign Up</h1>
       <form onSubmit={submitHandler}>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          onChange={(e) => setName(e.target.value)}
+        />
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -59,14 +75,22 @@ function SigninScreen() {
           required
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Sign In</button>
+        <label htmlFor="confirm-password">Confirm Password</label>
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          required
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <button type="submit">Sign Up</button>
       </form>
       <p>
-        New customer?{" "}
-        <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
+        Already have an account?{" "}
+        <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
       </p>
     </div>
   );
 }
 
-export default SigninScreen;
+export default SignupScreen;

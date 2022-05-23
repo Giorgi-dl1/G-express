@@ -300,22 +300,22 @@ footer {
   display: flex;
   align-items: center;
 }
-.signin {
+.form-container {
   width: 500px;
   max-width: 90vw;
 }
-.signin form {
+.form-container form {
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
 }
-.signin form input {
+.form-container form input {
   outline: none;
   border: 1px solid #ccc;
   height: 1.7rem;
   border-radius: 5px;
 }
-.signin form button {
+.form-container form button {
   padding: 0.6rem 0.7rem;
   cursor: pointer;
   border: none;
@@ -324,6 +324,10 @@ footer {
   color: white;
   border-radius: 5px;
   width: 5rem;
+  transition: 0.5s;
+}
+.form-container form button:hover {
+  opacity: 0.9;
 }
 .dropdown-items {
   position: absolute;
@@ -349,6 +353,19 @@ footer {
 .dropdown-title {
   display: flex;
   align-items: center;
+}
+.checkout-steps {
+  display: flex;
+}
+.checkout-steps div {
+  width: 25%;
+  border-bottom: 0.2rem solid #a0a0a0;
+  color: #a0a0a0;
+  padding: 0 0.7rem 0.7rem 0.7rem;
+}
+.checkout-steps .active {
+  border-bottom: 0.2rem solid #f08000;
+  color: #f08000;
 }
 @media (max-width: 800px) {
   main {

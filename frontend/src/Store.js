@@ -3,6 +3,9 @@ export const Store = createContext();
 
 const initialState = {
   cart: {
+    shippingAdress: localStorage.getItem("shippingAdress")
+      ? JSON.parse(localStorage.getItem("shippingAdress"))
+      : {},
     cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
@@ -11,6 +14,7 @@ const initialState = {
     ? JSON.parse(localStorage.getItem("userInfo"))
     : null,
 };
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
@@ -38,7 +42,19 @@ const reducer = (state, action) => {
     case "USER_SIGNIN":
       return { ...state, userInfo: action.payload };
     case "USER_SIGNOUT":
-      return { ...state, userInfo: null };
+      return {
+        ...state,
+        userInfo: null,
+        cart: {
+          cartItems: [],
+          shippingAdress: {},
+        },
+      };
+    case "SAVE_SHIPPING_ADRESS":
+      return {
+        ...state,
+        cart: { ...state.cart, shippingAdress: action.payload },
+      };
     default:
       return state;
   }

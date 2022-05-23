@@ -8,6 +8,8 @@ import { Store } from "./Store";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ShippingAddresScreen from "./screens/ShippingAddresScreen";
+import SignupScreen from "./screens/SignupScreen";
 function App() {
   const { state, dispatch: contextDispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -15,6 +17,7 @@ function App() {
   const signoutHandler = () => {
     contextDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("shippingAdress");
   };
   return (
     <BrowserRouter>
@@ -80,6 +83,8 @@ function App() {
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
+              <Route path="/signup" element={<SignupScreen />} />
+              <Route path="/shipping" element={<ShippingAddresScreen />} />
             </Routes>
           </main>
         </div>
