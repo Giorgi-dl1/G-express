@@ -284,7 +284,8 @@ footer {
 .checkout {
   padding: 0 1rem;
 }
-.checkout button {
+.checkout button,
+.order button {
   width: 100%;
   padding: 0.5rem;
   border: none;
@@ -293,7 +294,8 @@ footer {
   border-radius: 7px;
   cursor: pointer;
 }
-.checkout button:hover {
+.checkout button:hover,
+.order button:hover {
   opacity: 0.9;
 }
 .cart-item div {
@@ -367,7 +369,70 @@ footer {
   border-bottom: 0.2rem solid #f08000;
   color: #f08000;
 }
+.inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.box {
+  border: 1px solid #a0a0a0;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 7px;
+}
+.box div div p {
+  margin: 0.3rem 0;
+}
+.box h3 {
+  margin: 0 0 1rem 0;
+}
+.shippingInfo {
+  margin-bottom: 1rem;
+}
+.preview-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 0 1rem;
+}
+.items-preview {
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  overflow: hidden;
+  border-bottom: none;
+  margin-bottom: 1rem;
+}
+.info {
+  width: 70%;
+}
+.info-checkout {
+  display: flex;
+  gap: 1rem;
+}
+.order {
+  height: max-content;
+  width: 400px;
+  max-width: 82.5vw;
+}
+.pricing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.7rem;
+}
+.dark {
+  font-weight: bold;
+}
+
 @media (max-width: 800px) {
+  .info-checkout {
+    flex-direction: column;
+  }
+  .info {
+    width: 100%;
+  }
   main {
     padding: 0;
   }
@@ -392,6 +457,9 @@ footer {
   }
   .payment {
     margin-top: 2rem;
+  }
+  .checkout-steps {
+    margin: 1rem 0;
   }
 }
 @media (max-width: 500px) {

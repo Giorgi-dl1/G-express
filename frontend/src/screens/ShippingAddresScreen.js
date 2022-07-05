@@ -8,20 +8,22 @@ function ShippingAddresScreen() {
 
   const {
     userInfo,
-    cart: { shippingAdress },
+    cart: { shippingAddress },
   } = state;
-  const [fullName, setFullName] = useState(shippingAdress.fullName || "");
-  const [address, setAddress] = useState(shippingAdress.address || "");
-  const [city, setCity] = useState(shippingAdress.city || "");
-  const [postalCode, setPostalCode] = useState(shippingAdress.postalCode || "");
-  const [country, setCountry] = useState(shippingAdress.country || "");
+  const [fullName, setFullName] = useState(shippingAddress.fullName || "");
+  const [address, setAddress] = useState(shippingAddress.address || "");
+  const [city, setCity] = useState(shippingAddress.city || "");
+  const [postalCode, setPostalCode] = useState(
+    shippingAddress.postalCode || ""
+  );
+  const [country, setCountry] = useState(shippingAddress.country || "");
 
   const navigate = useNavigate();
 
   const submitHandler = (e) => {
     e.preventDefault();
     contextDispatch({
-      type: "SAVE_SHIPPING_ADRESS",
+      type: "SAVE_SHIPPING_ADDRESS",
       payload: {
         fullName,
         address,
@@ -31,7 +33,7 @@ function ShippingAddresScreen() {
       },
     });
     localStorage.setItem(
-      "shippingAdress",
+      "shippingAddress",
       JSON.stringify({ fullName, address, city, postalCode, country })
     );
     navigate("/payment");

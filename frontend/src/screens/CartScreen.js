@@ -46,7 +46,7 @@ function CartScreen() {
         <div className="cart">
           <div className="cart-items">
             {cartItems.map((x) => (
-              <div className="cart-item">
+              <div className="cart-item" key={x._id}>
                 <div style={{ width: 186, gap: "1rem" }}>
                   <div className="thumbnail">
                     <img src={x.image} alt={x.slug} />
