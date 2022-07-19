@@ -187,16 +187,20 @@ footer {
 .navbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
 }
 .navitems {
   display: flex;
+
   gap: 0.7rem;
 }
+.navitems-toggle div,
 .navitems div {
   color: hsl(0, 3%, 83%);
   cursor: pointer;
 }
+.navitems-toggle div:hover,
 .navitems div:hover {
   color: hsl(0, 3%, 95%);
 }
@@ -425,7 +429,51 @@ footer {
 .dark {
   font-weight: bold;
 }
-
+.dangerBox {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background-color: hsl(0, 61%, 76%);
+  color: hsl(0, 99%, 30%);
+  border-radius: 7px;
+  font-weight: 600;
+}
+.succesBox {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background-color: rgb(1, 27, 146);
+  color: white;
+  border-radius: 7px;
+  font-weight: 600;
+}
+.table {
+  width: 100%;
+  text-align: left;
+}
+.table thead {
+  box-shadow: 0 1px 0.2px 0.2px black;
+}
+.table tbody tr {
+  box-shadow: 0 1px 0.2px 0.2px rgba(0, 0, 0, 0.26);
+}
+.table-button {
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+  margin: 0.3rem 0;
+}
+.hamburger {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  display: none;
+}
+.hamburger .line {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.navitems-toggle {
+  display: none;
+}
 @media (max-width: 800px) {
   .info-checkout {
     flex-direction: column;
@@ -481,5 +529,31 @@ footer {
   }
   .status {
     justify-content: space-between;
+  }
+  .navitems {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+    gap: 3px;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  .hamburger .line {
+    width: 0.9rem;
+    height: 2px;
+    background-color: grey;
+  }
+  .navitems-toggle {
+    display: block;
+    padding: 1rem;
+    background-color: #020202f1;
+    color: white;
+  }
+  .navitems-toggle div {
+    padding: 0.2rem 0;
+  }
+  .navitems-toggle .cart-icon {
+    text-decoration: none;
   }
 }
