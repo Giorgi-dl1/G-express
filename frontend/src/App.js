@@ -18,6 +18,7 @@ import UserProfileScreen from "./screens/UserProfileScreen";
 import { getError } from "./functions";
 import axios from "axios";
 import SearchBox from "./components/SearchBox";
+import SearchScreen from "./screens/SearchScreen";
 
 function App() {
   const { state, dispatch: contextDispatch } = useContext(Store);
@@ -192,6 +193,7 @@ function App() {
               <Route path="placeorder" element={<PreviewOrderScreen />} />
               <Route path="/orderhistory" element={<OrderHistoryScreen />} />
               <Route path="/profile" element={<UserProfileScreen />} />
+              <Route path="/search" element={<SearchScreen />} />
             </Routes>
           </main>
         </div>

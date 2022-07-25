@@ -5,7 +5,7 @@ import {
   MdOutlineStarHalf,
 } from "react-icons/md";
 
-function Rating({ rating, numReviews }) {
+function Rating({ rating, caption, numReviews }) {
   return (
     <div className="rating">
       <span className="review-star">
@@ -54,7 +54,7 @@ function Rating({ rating, numReviews }) {
         )}
       </span>
       <span>
-        <p>{numReviews} reviews</p>
+        {numReviews ? <p> {numReviews} reviews</p> : <p>{caption}</p>}
       </span>
     </div>
   );

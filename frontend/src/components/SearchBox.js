@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { BsSearch } from "react-icons/bs";
 export default function SearchBox() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ export default function SearchBox() {
     navigate(query ? `/search/?query=${query}` : "/search");
   };
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className="search-form">
       <input
         style={{ outline: "none", border: "none", padding: ".21rem" }}
         type="text"
@@ -18,7 +18,7 @@ export default function SearchBox() {
         placeholder="Search item"
       />
       <button type="submit" className="button-search">
-        Search
+        <BsSearch />
       </button>
     </form>
   );
