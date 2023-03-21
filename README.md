@@ -2,26 +2,26 @@
 
 ## In order to start this project, follow these steps:
 
-```
-cd backend
-```
+1. Clone the repository
 
 ```
-npm install
+git clone https://github.com/Giorgi-dl1/G-express.git
 ```
 
-```
-node server.js
-```
+2. Install dependencies
 
 ```
-cd ../frontend
+cd backend && npm install && cd ../frontend && npm install --force && cd ..
 ```
 
-```
-npm install --force
-```
+3. Run backend
 
 ```
-npm start
+cd backend && node server.js
+```
+
+3. Open new terminal and run frontend
+
+```
+cd frontend && npm start
 ```
