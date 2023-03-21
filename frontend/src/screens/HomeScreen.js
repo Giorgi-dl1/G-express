@@ -1,40 +1,40 @@
-import { useEffect, useReducer } from "react";
-import axios from "axios";
-import logger from "use-reducer-logger";
-import Product from "../components/Product";
-import { Helmet } from "react-helmet-async";
-import { getError } from "../functions";
+import { useEffect, useReducer } from 'react'
+import axios from 'axios'
+import logger from 'use-reducer-logger'
+import Product from '../components/Product'
+import { Helmet } from 'react-helmet-async'
+import { getError } from '../functions'
 const reducer = (state, action) => {
   switch (action.type) {
-    case "FETCH_REQUEST":
-      return { ...state, loading: true };
-    case "FETCH_SUCCESS":
-      return { ...state, loading: false, products: action.payload };
-    case "FETCH_FAIL":
-      return { ...state, loading: false, error: action.payload };
+    case 'FETCH_REQUEST':
+      return { ...state, loading: true }
+    case 'FETCH_SUCCESS':
+      return { ...state, loading: false, products: action.payload }
+    case 'FETCH_FAIL':
+      return { ...state, loading: false, error: action.payload }
     default:
-      break;
+      break
   }
-};
+}
 
 function HomeScreen() {
   const [{ loading, products, error }, dispatch] = useReducer(logger(reducer), {
     products: [],
-    error: "",
+    error: '',
     loading: true,
-  });
+  })
   useEffect(() => {
     const getProducts = async () => {
-      dispatch({ type: "FETCH_REQUEST" });
+      dispatch({ type: 'FETCH_REQUEST' })
       try {
-        const data = await axios.get("/api/products");
-        dispatch({ type: "FETCH_SUCCESS", payload: data.data });
+        const data = await axios.get('/api/products')
+        dispatch({ type: 'FETCH_SUCCESS', payload: data.data })
       } catch (error) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(error) });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(error) })
       }
-    };
-    getProducts();
-  }, []);
+    }
+    getProducts()
+  }, [])
 
   return (
     <div className="container">
@@ -54,7 +54,7 @@ function HomeScreen() {
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default HomeScreen;
+export default HomeScreen

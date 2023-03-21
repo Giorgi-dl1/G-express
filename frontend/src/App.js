@@ -1,58 +1,58 @@
-import { useContext, useEffect, useState } from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import CartScreen from "./screens/CartScreen";
-import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
-import SigninScreen from "./screens/SigninScreen";
-import { Store } from "./Store";
-import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ShippingAddresScreen from "./screens/ShippingAddresScreen";
-import SignupScreen from "./screens/SignupScreen";
-import PaymentMethodScreen from "./screens/PaymentMethodScreen";
-import PreviewOrderScreen from "./screens/PreviewOrderScreen";
-import OrderScreen from "./screens/OrderScreen";
-import OrderHistoryScreen from "./screens/OrderHistoryScreen";
-import UserProfileScreen from "./screens/UserProfileScreen";
-import { getError } from "./functions";
-import axios from "axios";
-import SearchBox from "./components/SearchBox";
-import SearchScreen from "./screens/SearchScreen";
+import { useContext, useEffect, useState } from 'react'
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import CartScreen from './screens/CartScreen'
+import HomeScreen from './screens/HomeScreen'
+import ProductScreen from './screens/ProductScreen'
+import SigninScreen from './screens/SigninScreen'
+import { Store } from './Store'
+import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import ShippingAddresScreen from './screens/ShippingAddresScreen'
+import SignupScreen from './screens/SignupScreen'
+import PaymentMethodScreen from './screens/PaymentMethodScreen'
+import PreviewOrderScreen from './screens/PreviewOrderScreen'
+import OrderScreen from './screens/OrderScreen'
+import OrderHistoryScreen from './screens/OrderHistoryScreen'
+import UserProfileScreen from './screens/UserProfileScreen'
+import { getError } from './functions'
+import axios from 'axios'
+import SearchBox from './components/SearchBox'
+import SearchScreen from './screens/SearchScreen'
 
 function App() {
-  const { state, dispatch: contextDispatch } = useContext(Store);
-  const { cart, userInfo } = state;
-  const [dropdown, setDropDown] = useState(false);
-  const [showToggleNaw, setShowToggleNav] = useState(false);
+  const { state, dispatch: contextDispatch } = useContext(Store)
+  const { cart, userInfo } = state
+  const [dropdown, setDropDown] = useState(false)
+  const [showToggleNaw, setShowToggleNav] = useState(false)
   const signoutHandler = () => {
-    contextDispatch({ type: "USER_SIGNOUT" });
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("shippingAdress");
-    localStorage.removeItem("paymentMethod");
-    window.location.href = "/signin";
-  };
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [categories, setCategories] = useState([]);
+    contextDispatch({ type: 'USER_SIGNOUT' })
+    localStorage.removeItem('userInfo')
+    localStorage.removeItem('shippingAdress')
+    localStorage.removeItem('paymentMethod')
+    window.location.href = '/signin'
+  }
+  const [showSidebar, setShowSidebar] = useState(false)
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get("/api/products/categories");
-        setCategories(data);
+        const { data } = await axios.get('/api/products/categories')
+        setCategories(data)
       } catch (error) {
-        toast.error(getError(error));
+        toast.error(getError(error))
       }
-    };
-    fetchCategories();
-  }, []);
+    }
+    fetchCategories()
+  }, [])
 
   return (
     <BrowserRouter>
       <div className="site-container">
         <div>
           <ToastContainer position="bottom-center" limit={1} />
-          <header className={showSidebar ? "sidebar-margin" : ""}>
+          <header className={showSidebar ? 'sidebar-margin' : ''}>
             <div className="container navbar">
               <div className="sidebar-brand">
                 <div
@@ -106,7 +106,7 @@ function App() {
                         </Link>
                       </div>
                     ) : (
-                      ""
+                      ''
                     )}
                   </div>
                 ) : (
@@ -164,7 +164,7 @@ function App() {
                       </Link>
                     </div>
                   ) : (
-                    ""
+                    ''
                   )}
                 </div>
               ) : (
@@ -172,15 +172,15 @@ function App() {
               )}
             </div>
           )}
-          <div className={showSidebar ? "sidebar show-sidebar" : "sidebar "}>
+          <div className={showSidebar ? 'sidebar show-sidebar' : 'sidebar '}>
             <h3 className="category-header">Categories</h3>
             {categories.map((category) => (
-              <div className="category-link">
+              <div key={category} className="category-link">
                 <Link to={`/search?category=${category}`}>{category}</Link>
               </div>
             ))}
           </div>
-          <main className={showSidebar ? "sidebar-margin" : ""}>
+          <main className={showSidebar ? 'sidebar-margin' : ''}>
             <Routes>
               <Route path="/" element={<HomeScreen />} />
               <Route path="/product/:slug" element={<ProductScreen />} />
@@ -202,7 +202,7 @@ function App() {
         </footer>
       </div>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
