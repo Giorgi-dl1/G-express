@@ -1,6 +1,6 @@
 # How to start
 
-## In order to start this project, fllow these steps:
+## In order to start this project, follow these steps:
 
 ```
 cd backend
